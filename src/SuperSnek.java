@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 public class SuperSnek {
 	JFrame f;
 	JPanel p;
-	int w = 500;
-	int h = 500;
+	static final int w = 500;
+	static final int h = 500;
 
 	public static void main(String[] args) {
 		SuperSnek ss = new SuperSnek();
