@@ -1,11 +1,10 @@
 import java.awt.Color;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class SuperSnek {
 	JFrame f;
-	JPanel p;
+	GamePanel gp;
 	static final int w = 500;
 	static final int h = 500;
 
@@ -15,12 +14,19 @@ public class SuperSnek {
 
 	public SuperSnek() {
 		f = new JFrame();
-		p = new GamePanel();
-		f.add(p);
+		gp = new GamePanel();
+		setup();
 		f.setSize(w, h);
 		f.setBackground(new Color(0, 100, 50));
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	void setup() {
+		f.add(gp);
+		f.addKeyListener(gp);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gp.startGame();
 	}
 
 }

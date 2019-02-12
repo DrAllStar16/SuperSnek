@@ -4,11 +4,12 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer t;
 	final static int MENU_STATE = 0;
 	final static int GAME_STATE = 1;
@@ -22,11 +23,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		t = new Timer(1000 / 60, this);
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
-	}
-
-	public void paintComponent(Graphics g) {
-		g.setColor(new Color(0, 150, 70));
-		g.fillRect(0, 0, 500, 500);
 	}
 
 	@Override
@@ -65,26 +61,30 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void drawMenuState(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(0, 150, 30, 100));
 		g.fillRect(0, 0, SuperSnek.w, SuperSnek.h);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
-		g.drawString("SuperSnek", 130, 40);
+		g.drawString("SuperSnek", 180, 50);
 		g.drawString("Press ENTER to start", 90, 400);
-		g.drawString("Press SPACE for intructions", 50, 700);
 	}
 
 	public void drawGameState(Graphics g) {
-
+		g.setColor(new Color(100, 85, 51, 178));
+		g.fillRect(0, 0, SuperSnek.w, SuperSnek.h);
 	}
 
 	public void drawEndState(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(new Color(153, 0, 0, 255));
 		g.fillRect(0, 0, SuperSnek.w, SuperSnek.h);
 		g.setFont(GameOverFont);
 		g.setColor(Color.WHITE);
 		g.drawString("Game Over", 140, 40);
-		g.drawString("Press ENTER to restart", 40, 700);
+		g.drawString("Press ENTER to restart", 40, 450);
+	}
+
+	void startGame() {
+		t.start();
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -102,14 +102,42 @@ public class GamePanel extends JPanel implements ActionListener {
 		// if (KeyEvent.VK_UP == e.getKeyCode()) {
 		// SS.-= 20;
 		// } else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
-		// RS.y += 20;
+		// SS.y += 20;
 		// }
 		// if (KeyEvent.VK_LEFT == e.getKeyCode()) {
-		// RS.x -= 20;
+		// SS.x -= 20;
 		// }
 		// if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
-		// RS.x += 20;
+		// SS.x += 20;
 
 		// }
+	}
+
+	public void paintComponent(Graphics g) {
+		if (currentState == MENU_STATE) {
+
+			drawMenuState(g);
+
+		} else if (currentState == GAME_STATE) {
+
+			drawGameState(g);
+
+		} else if (currentState == END_STATE) {
+
+			drawEndState(g);
+
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }
