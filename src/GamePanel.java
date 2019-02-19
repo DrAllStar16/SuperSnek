@@ -17,12 +17,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static int currentState = MENU_STATE;
 	Font titleFont;
 	Font GameOverFont;
-	SuperSnek SS;
+	TheSnek TS;
+	ObjectManager OM;
 
 	public GamePanel() {
 		t = new Timer(1000 / 60, this);
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
+		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, 500, 500);
+		OM = new ObjectManager(TS);
 	}
 
 	@Override
@@ -72,6 +75,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawGameState(Graphics g) {
 		g.setColor(new Color(100, 85, 51, 178));
 		g.fillRect(0, 0, SuperSnek.w, SuperSnek.h);
+		OM.draw(g);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -99,18 +103,31 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 
-		// if (KeyEvent.VK_UP == e.getKeyCode()) {
-		// SS.-= 20;
-		// } else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
-		// SS.y += 20;
-		// }
-		// if (KeyEvent.VK_LEFT == e.getKeyCode()) {
-		// SS.x -= 20;
-		// }
-		// if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
-		// SS.x += 20;
+		if (KeyEvent.VK_UP == e.getKeyCode()) {
+			TS.y -= 20;
+			if (TS.y < 0) {
+				TS.y = 500;
+			}
 
-		// }
+		} else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
+			TS.y += 20;
+			if (TS.y > 500) {
+				TS.y = 0;
+			}
+		}
+		if (KeyEvent.VK_LEFT == e.getKeyCode()) {
+			TS.x -= 20;
+			if (TS.x < 0) {
+				TS.x = 500;
+			}
+		}
+		if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
+			TS.x += 20;
+
+			if (TS.x > 500) {
+				TS.x = 0;
+			}
+		}
 	}
 
 	public void paintComponent(Graphics g) {
