@@ -8,9 +8,9 @@ public class ObjectManager {
 
 	public ObjectManager(TheSnek TS) {
 		this.TS = TS;
-		while(random x!= TS.x && random y ! = TS.y) {
-			
-		}
+		// while(random x!= TS.x && random y ! = TS.y) {
+
+		// }
 	}
 
 	public void update() {

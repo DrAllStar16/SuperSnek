@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font GameOverFont;
 	TheSnek TS;
 	ObjectManager OM;
+	int yspeed;
+	int xspeed;
 
 	public GamePanel() {
 		t = new Timer(1000 / 60, this);
@@ -54,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	private void updateGameState() {
-		// TODO Auto-generated method stub
+		TS.update();
 
 	}
 
@@ -104,29 +106,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (KeyEvent.VK_UP == e.getKeyCode()) {
-			TS.y -= 20;
-			if (TS.y < 0) {
-				TS.y = 500;
-			}
+			TS.yspeed = -5;
+			TS.xspeed = 0;
 
 		} else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
-			TS.y += 20;
-			if (TS.y > 500) {
-				TS.y = 0;
-			}
+			TS.yspeed = 5;
+			TS.xspeed = 0;
 		}
 		if (KeyEvent.VK_LEFT == e.getKeyCode()) {
-			TS.x -= 20;
-			if (TS.x < 0) {
-				TS.x = 500;
-			}
+			TS.xspeed = -5;
+			TS.yspeed = 0;
 		}
 		if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
-			TS.x += 20;
-
-			if (TS.x > 500) {
-				TS.x = 0;
-			}
+			TS.xspeed = 5;
+			TS.yspeed = 0;
 		}
 	}
 
