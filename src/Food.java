@@ -1,14 +1,15 @@
 import java.util.Random;
 
-public class Food {
+public class Food extends GameObject {
 	int foodx = 0;
 	int foody = 0;
 	int f20 = 0;
-	Random r = new Random();
+	int r = new Random().nextInt(500);
 
-	public Food() {
+	public Food(int x, int y, int w, int h) {
+		super(x, y, w, h);
 		while (foodx == 0) {
-			if (f20 - r.nextInt() < 10) {
+			if (f20 - r < 10) {
 				foodx = f20;
 			}
 			f20 += 20;
