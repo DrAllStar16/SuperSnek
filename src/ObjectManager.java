@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class ObjectManager {
 	TheSnek TS;
-	Food f = new Food(20 + 20, 20 + 20, 20, 20);
+	Food f = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY);
 	ArrayList<Food> food = new ArrayList<Food>();
 
 	public ObjectManager(TheSnek TS) {
@@ -31,7 +31,6 @@ public class ObjectManager {
 	public void checkCollision() {
 
 		for (Food f : food) {
-			System.out.println(f.x + " " + f.y);
 
 			if (TS.collisionBox.intersects(f.collisionBox)) {
 				f.isAlive = false;
@@ -45,7 +44,7 @@ public class ObjectManager {
 		for (int i = 0; i < food.size(); i++) {
 			if (!food.get(i).isAlive) {
 				food.remove(i);
-
+				makeMeFood();
 			}
 		}
 	}
@@ -58,14 +57,14 @@ public class ObjectManager {
 		do {
 			fod = r.nextInt(500);
 			foood = r.nextInt(500);
-			Rectangle TempFood = new Rectangle(fod, foood, 20, 20);
+			Rectangle TempFood = new Rectangle(fod, foood, SuperSnek.XY, SuperSnek.XY);
 			if (TempFood.intersects(TS.collisionBox)) {
 				overlap = true;
 			} else {
 				overlap = false;
 			}
 		} while (overlap);
-		food.add(new Food(fod, foood, 20, 20));
+		food.add(new Food(fod, foood, SuperSnek.XY, SuperSnek.XY));
 
 	}
 

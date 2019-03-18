@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		t = new Timer(1000 / 60, this);
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
-		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, 500, 500);
+		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
 		OM = new ObjectManager(TS);
 	}
 

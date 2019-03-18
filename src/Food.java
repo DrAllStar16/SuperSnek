@@ -8,13 +8,13 @@ public class Food extends GameObject {
 
 	public Food(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		r = r - (r % 20);
+		r = r - (r % SuperSnek.XY);
 
 	}
 
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(x, y, 20, 20);
+		g.fillRect(x, y, SuperSnek.XY, SuperSnek.XY);
 
 	}
 

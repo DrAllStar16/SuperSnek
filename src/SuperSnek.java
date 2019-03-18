@@ -7,6 +7,7 @@ public class SuperSnek {
 	GamePanel gp;
 	static final int w = 500;
 	static final int h = 500;
+	static final int XY = 20;
 
 	public static void main(String[] args) {
 		SuperSnek ss = new SuperSnek();
