@@ -30,7 +30,7 @@ public class TheSnek extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.fillRect(x, y, SuperSnek.XY, SuperSnek.XY);
+		g.drawImage(GamePanel.SnekelImg, x, y, w, h, null);
 		g.setColor(Color.GREEN);
 
 	}

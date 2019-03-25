@@ -6,13 +6,15 @@ import java.util.Random;
 public class ObjectManager {
 	TheSnek TS;
 	Food f = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY);
-	ArrayList<Food> food = new ArrayList<Food>();
+	ArrayList<Food> Superfood = new ArrayList<Food>();
+	ArrayList<Food> Normalfood = new ArrayList<Food>();
+	static final int SUPER_FOOD = 1;
+	static final int NORMAL_FOOD = 2;
 
 	public ObjectManager(TheSnek TS) {
 		this.TS = TS;
-		food.add(f);
-		makeMeFood();
-
+		Superfood.add(f);
+		Normalfood.add(f);
 	}
 
 	public void update() {
@@ -22,15 +24,27 @@ public class ObjectManager {
 
 	public void draw(Graphics g) {
 		TS.draw(g);
-		for (int i = 0; i < food.size(); i++) {
-			food.get(i).draw(g);
+		for (int i = 0; i < Superfood.size(); i++) {
+			Superfood.get(i).draw(g);
+		}
+		for (int i = 0; i < Normalfood.size(); i++) {
+			Normalfood.get(i).draw(g);
 		}
 
 	}
 
 	public void checkCollision() {
 
-		for (Food f : food) {
+		for (Food f : Superfood) {
+
+			if (TS.collisionBox.intersects(f.collisionBox)) {
+				f.isAlive = false;
+				System.out.println("b");
+			}
+
+		}
+
+		for (Food f : Normalfood) {
 
 			if (TS.collisionBox.intersects(f.collisionBox)) {
 				f.isAlive = false;
@@ -41,31 +55,59 @@ public class ObjectManager {
 	}
 
 	public void purgeObject() {
-		for (int i = 0; i < food.size(); i++) {
-			if (!food.get(i).isAlive) {
-				food.remove(i);
-				makeMeFood();
+		for (int i = 0; i < Superfood.size(); i++) {
+			if (!Superfood.get(i).isAlive) {
+				Superfood.remove(i);
+				makeMeFood(SUPER_FOOD);
+			}
+		}
+
+		for (int i = 0; i < Normalfood.size(); i++) {
+			if (!Normalfood.get(i).isAlive) {
+				Normalfood.remove(i);
+				makeMeFood(NORMAL_FOOD);
 			}
 		}
 	}
 
-	public void makeMeFood() {
+	public void makeMeFood(int foodType) {
+		if (foodType == SUPER_FOOD) {
+			makeSuperFood();
+		} else if (foodType == NORMAL_FOOD) {
+			makeNormalFood();
+		}
+
+	}
+
+	public void makeSuperFood() {
+		ArrayList<Integer> pos = getFoodPos();
+		Superfood.add(new Food(pos.get(0), pos.get(1), SuperSnek.XY, SuperSnek.XY));
+	}
+
+	public void makeNormalFood() {
+		ArrayList<Integer> pos = getFoodPos();
+		Superfood.add(new Food(pos.get(0), pos.get(1), SuperSnek.XY, SuperSnek.XY));
+	}
+
+	public ArrayList<Integer> getFoodPos() {
+		ArrayList<Integer> pos = new ArrayList<Integer>();
 		boolean overlap = false;
-		int fod;
-		int foood;
+		int xpos;
+		int ypos;
 		Random r = new Random();
 		do {
-			fod = r.nextInt(500);
-			foood = r.nextInt(500);
-			Rectangle TempFood = new Rectangle(fod, foood, SuperSnek.XY, SuperSnek.XY);
+			xpos = r.nextInt(SuperSnek.w);
+			ypos = r.nextInt(SuperSnek.h);
+			Rectangle TempFood = new Rectangle(xpos, ypos, SuperSnek.XY, SuperSnek.XY);
 			if (TempFood.intersects(TS.collisionBox)) {
 				overlap = true;
 			} else {
 				overlap = false;
 			}
 		} while (overlap);
-		food.add(new Food(fod, foood, SuperSnek.XY, SuperSnek.XY));
+		pos.add(xpos);
+		pos.add(ypos);
+		return pos;
 
 	}
-
 }

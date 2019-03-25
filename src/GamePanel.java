@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -21,6 +24,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager OM;
 	int yspeed;
 	int xspeed;
+	public static BufferedImage SnekelImg;
+
+	public static BufferedImage CupCakeImg;
+
+	public static BufferedImage TheDonutImg;
 
 	public GamePanel() {
 		t = new Timer(1000 / 60, this);
@@ -28,6 +36,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
 		OM = new ObjectManager(TS);
+
+		try {
+
+			SnekelImg = ImageIO.read(this.getClass().getResourceAsStream("Snekel.png"));
+
+			CupCakeImg = ImageIO.read(this.getClass().getResourceAsStream("CupCake.png"));
+
+			TheDonutImg = ImageIO.read(this.getClass().getResourceAsStream("TheDonut.png"));
+
+		} catch (IOException e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+		}
 	}
 
 	@Override

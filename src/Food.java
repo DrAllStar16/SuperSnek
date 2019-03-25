@@ -14,7 +14,7 @@ public class Food extends GameObject {
 
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(x, y, SuperSnek.XY, SuperSnek.XY);
+		g.drawImage(GamePanel.TheDonutImg, x, y, w, h, null);
 
 	}
 
