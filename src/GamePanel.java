@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
 		OM = new ObjectManager(TS);
+		ArrayList<Obstical> Obstical = new ArrayList<Obstical>();
 
 		try {
 

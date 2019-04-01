@@ -5,7 +5,9 @@ import java.util.Random;
 
 public class ObjectManager {
 	TheSnek TS;
-	Food f = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY);
+	Obstical O;
+	Food s = new Food(SuperSnek.XY + 420, SuperSnek.XY + 400, SuperSnek.XY, SuperSnek.XY, true);
+	Food n = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY, false);
 	ArrayList<Food> Superfood = new ArrayList<Food>();
 	ArrayList<Food> Normalfood = new ArrayList<Food>();
 	static final int SUPER_FOOD = 1;
@@ -13,8 +15,9 @@ public class ObjectManager {
 
 	public ObjectManager(TheSnek TS) {
 		this.TS = TS;
-		Superfood.add(f);
-		Normalfood.add(f);
+
+		Superfood.add(s);
+		Normalfood.add(n);
 	}
 
 	public void update() {
@@ -24,6 +27,7 @@ public class ObjectManager {
 
 	public void draw(Graphics g) {
 		TS.draw(g);
+
 		for (int i = 0; i < Superfood.size(); i++) {
 			Superfood.get(i).draw(g);
 		}
@@ -39,7 +43,7 @@ public class ObjectManager {
 
 			if (TS.collisionBox.intersects(f.collisionBox)) {
 				f.isAlive = false;
-				System.out.println("b");
+
 			}
 
 		}
@@ -48,7 +52,7 @@ public class ObjectManager {
 
 			if (TS.collisionBox.intersects(f.collisionBox)) {
 				f.isAlive = false;
-				System.out.println("b");
+
 			}
 
 		}
@@ -81,12 +85,12 @@ public class ObjectManager {
 
 	public void makeSuperFood() {
 		ArrayList<Integer> pos = getFoodPos();
-		Superfood.add(new Food(pos.get(0), pos.get(1), SuperSnek.XY, SuperSnek.XY));
+		Superfood.add(new Food(pos.get(0), pos.get(1), SuperSnek.XY, SuperSnek.XY, true));
 	}
 
 	public void makeNormalFood() {
 		ArrayList<Integer> pos = getFoodPos();
-		Superfood.add(new Food(pos.get(0), pos.get(1), SuperSnek.XY, SuperSnek.XY));
+		Normalfood.add(new Food(pos.get(0), pos.get(1), SuperSnek.XY, SuperSnek.XY, false));
 	}
 
 	public ArrayList<Integer> getFoodPos() {
@@ -96,8 +100,11 @@ public class ObjectManager {
 		int ypos;
 		Random r = new Random();
 		do {
-			xpos = r.nextInt(SuperSnek.w);
-			ypos = r.nextInt(SuperSnek.h);
+
+			xpos = r.nextInt(SuperSnek.w - SuperSnek.XY);
+			ypos = r.nextInt(SuperSnek.h - SuperSnek.XY);
+			xpos = xpos - (xpos % SuperSnek.XY);
+			ypos = ypos - (ypos % SuperSnek.XY);
 			Rectangle TempFood = new Rectangle(xpos, ypos, SuperSnek.XY, SuperSnek.XY);
 			if (TempFood.intersects(TS.collisionBox)) {
 				overlap = true;
