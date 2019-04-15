@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 public class TheSnek extends GameObject {
 	int speed;
 	int yspeed = 0;
@@ -27,7 +29,11 @@ public class TheSnek extends GameObject {
 		if (x > 500) {
 			x = 0;
 		}
+		
+		
 	}
+	
+	
 
 	public void draw(Graphics g) {
 		g.drawImage(GamePanel.SnekelImg, x, y, w, h, null);

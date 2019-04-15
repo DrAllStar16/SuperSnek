@@ -1,9 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Obstical extends GameObject {
+public class Obstacle extends GameObject {
 
-	public Obstical(int x, int y, int w, int h) {
+	public Obstacle(int x, int y, int w, int h) {
 		super(x, y, w, h);
 
 	}

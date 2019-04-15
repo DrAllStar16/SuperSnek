@@ -5,29 +5,32 @@ import java.util.Random;
 
 public class ObjectManager {
 	TheSnek TS;
-	Obstical O;
+	Obstacle O;
 	Food s = new Food(SuperSnek.XY + 420, SuperSnek.XY + 400, SuperSnek.XY, SuperSnek.XY, true);
 	Food n = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY, false);
 	ArrayList<Food> Superfood = new ArrayList<Food>();
 	ArrayList<Food> Normalfood = new ArrayList<Food>();
+	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	static final int SUPER_FOOD = 1;
 	static final int NORMAL_FOOD = 2;
 
-	public ObjectManager(TheSnek TS) {
+	public ObjectManager(TheSnek TS, Obstacle O) {
 		this.TS = TS;
-
+		this.O = O;
 		Superfood.add(s);
 		Normalfood.add(n);
+		obstacles.add(O);
 	}
 
 	public void update() {
 		TS.update();
+		
 
 	}
 
 	public void draw(Graphics g) {
 		TS.draw(g);
-
+		O.draw(g);
 		for (int i = 0; i < Superfood.size(); i++) {
 			Superfood.get(i).draw(g);
 		}
@@ -55,6 +58,17 @@ public class ObjectManager {
 
 			}
 
+		}
+		
+		for (Obstacle o:obstacles){
+			
+			if (TS.collisionBox.intersects(o.collisionBox)) {
+				TS.isAlive = false;
+				
+				
+
+			}
+			
 		}
 	}
 
@@ -117,4 +131,11 @@ public class ObjectManager {
 		return pos;
 
 	}
+	
+	public void reseting() {
+		
+		TS.isAlive = true;
+		
+	}
+	
 }

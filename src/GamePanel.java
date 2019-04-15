@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font GameOverFont;
 	TheSnek TS;
 	ObjectManager OM;
+	Obstacle O;
 	int yspeed;
 	int xspeed;
 	public static BufferedImage SnekelImg;
@@ -36,8 +37,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
-		OM = new ObjectManager(TS);
-		ArrayList<Obstical> Obstical = new ArrayList<Obstical>();
+		O = new Obstacle(100,400,50,50);
+		OM = new ObjectManager(TS,O);
+		ArrayList<Obstacle> Obstical = new ArrayList<Obstacle>();
 
 		try {
 
@@ -85,6 +87,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		OM.update();
 		OM.checkCollision();
 		OM.purgeObject();
+		if (!TS.isAlive) {
+			currentState = END_STATE;
+			TS.isAlive = true;
+			
+		}
 	}
 
 	private void updateEndState() {
@@ -97,8 +104,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, SuperSnek.w, SuperSnek.h);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
-		g.drawString("SuperSnek", 180, 50);
-		g.drawString("Press ENTER to start", 90, 400);
+		g.drawString("SuperSnek", 160, 50);
+		g.drawString("Press ENTER to start", 80, 400);
 	}
 
 	public void drawGameState(Graphics g) {
