@@ -31,15 +31,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage CupCakeImg;
 
 	public static BufferedImage TheDonutImg;
+	ResetListener rl;
 
-	public GamePanel() {
+	public GamePanel(ResetListener rl) {
+		this.rl = rl;
 		t = new Timer(1000 / 60, this);
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
-		O = new Obstacle(100,400,50,50);
-		OM = new ObjectManager(TS,O);
-		ArrayList<Obstacle> Obstical = new ArrayList<Obstacle>();
+		O = new Obstacle(100, 400, 50, 50);
+		OM = new ObjectManager(TS, O);
+		ArrayList<Obstacle> Obstacle = new ArrayList<Obstacle>();
 
 		try {
 
@@ -90,7 +92,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (!TS.isAlive) {
 			currentState = END_STATE;
 			TS.isAlive = true;
-			
+
 		}
 	}
 
@@ -130,10 +132,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if (KeyEvent.VK_ENTER == e.getKeyCode()) {
 
-			if (currentState == END_STATE) {
-
-			}
 			currentState++;
+			if (currentState == GAME_STATE) {
+				rl.reset();
+			}
 			if (currentState > END_STATE) {
 				currentState = MENU_STATE;
 			}

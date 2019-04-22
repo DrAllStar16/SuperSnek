@@ -23,8 +23,6 @@ public class ObjectManager {
 	}
 
 	public void update() {
-		TS.update();
-		
 
 	}
 
@@ -59,16 +57,14 @@ public class ObjectManager {
 			}
 
 		}
-		
-		for (Obstacle o:obstacles){
-			
+
+		for (Obstacle o : obstacles) {
+
 			if (TS.collisionBox.intersects(o.collisionBox)) {
 				TS.isAlive = false;
-				
-				
 
 			}
-			
+
 		}
 	}
 
@@ -131,11 +127,11 @@ public class ObjectManager {
 		return pos;
 
 	}
-	
+
 	public void reseting() {
-		
+
 		TS.isAlive = true;
-		
+
 	}
-	
+
 }
