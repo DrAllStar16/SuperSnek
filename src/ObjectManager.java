@@ -23,7 +23,7 @@ public class ObjectManager {
 	}
 
 	public void update() {
-
+		TS.update();
 	}
 
 	public void draw(Graphics g) {
@@ -104,33 +104,70 @@ public class ObjectManager {
 	}
 
 	public ArrayList<Integer> getFoodPos() {
+		/*
+		 * ArrayList<Integer> pos = new ArrayList<Integer>(); boolean overlap = false;
+		 * int xpos; int ypos; Random r = new Random(); do {
+		 * 
+		 * xpos = r.nextInt(SuperSnek.w - SuperSnek.XY); ypos = r.nextInt(SuperSnek.h -
+		 * SuperSnek.XY); xpos = xpos - (xpos % SuperSnek.XY); ypos = ypos - (ypos %
+		 * SuperSnek.XY); Rectangle TempFood = new Rectangle(xpos, ypos, SuperSnek.XY,
+		 * SuperSnek.XY); if (TempFood.intersects(TS.collisionBox)) { overlap = true; }
+		 * else { overlap = false; } } while (overlap); pos.add(xpos); pos.add(ypos);
+		 * return pos;
+		 */
+		return checkNewObjectCollision(SuperSnek.XY, SuperSnek.XY);
+	}
+
+	public void reseting() {
+
+		TS.isAlive = true;
+
+	}
+
+	public ArrayList<Integer> checkNewObjectCollision(int w, int h) {
+
 		ArrayList<Integer> pos = new ArrayList<Integer>();
 		boolean overlap = false;
 		int xpos;
 		int ypos;
 		Random r = new Random();
 		do {
-
-			xpos = r.nextInt(SuperSnek.w - SuperSnek.XY);
-			ypos = r.nextInt(SuperSnek.h - SuperSnek.XY);
+			// Get a random value within the Snek frame
+			xpos = r.nextInt(SuperSnek.w - w);
+			ypos = r.nextInt(SuperSnek.h - h);
 			xpos = xpos - (xpos % SuperSnek.XY);
 			ypos = ypos - (ypos % SuperSnek.XY);
-			Rectangle TempFood = new Rectangle(xpos, ypos, SuperSnek.XY, SuperSnek.XY);
-			if (TempFood.intersects(TS.collisionBox)) {
+
+			// Its making sure that the random x and y values don't intersect anything else
+			Rectangle TempObject = new Rectangle(xpos, ypos, SuperSnek.XY, SuperSnek.XY);
+
+			// 1. Checking the snek collision
+			if (TempObject.intersects(TS.collisionBox)) {
 				overlap = true;
-			} else {
-				overlap = false;
+				break;
+			}
+			if (TempObject.intersects(O.collisionBox)) {
+				overlap = true;
+				break;
+			}
+			for (int i = 0; i < Superfood.size(); i++) {
+
+				if (TempObject.intersects(Superfood.get(i).collisionBox)) {
+					overlap = true;
+					break;
+				}
+				for (int f = 0; f < Normalfood.size(); f++) {
+
+					if (TempObject.intersects(Normalfood.get(f).collisionBox)) {
+						overlap = true;
+						break;
+					}
+				}
 			}
 		} while (overlap);
 		pos.add(xpos);
 		pos.add(ypos);
 		return pos;
-
-	}
-
-	public void reseting() {
-
-		TS.isAlive = true;
 
 	}
 

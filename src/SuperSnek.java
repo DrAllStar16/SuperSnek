@@ -13,7 +13,7 @@ public class SuperSnek {
 		@Override
 		public void reset() {
 			gp.removeAll();
-			f.dispose();
+			f.removeAll();
 			SuperSnek s = new SuperSnek();
 			s.setup();
 
