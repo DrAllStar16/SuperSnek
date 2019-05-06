@@ -9,7 +9,7 @@ public class Obstacle extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.drawRect(x, y, 60, 60);
+		g.drawRect(x, y, w, h);
 		g.setColor(Color.GRAY);
 
 	}

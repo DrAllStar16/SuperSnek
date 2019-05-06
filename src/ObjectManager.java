@@ -20,6 +20,7 @@ public class ObjectManager {
 		Superfood.add(s);
 		Normalfood.add(n);
 		obstacles.add(O);
+		
 	}
 
 	public void update() {
@@ -133,8 +134,10 @@ public class ObjectManager {
 		Random r = new Random();
 		do {
 			// Get a random value within the Snek frame
-			xpos = r.nextInt(SuperSnek.w - w);
-			ypos = r.nextInt(SuperSnek.h - h);
+			//xpos = r.nextInt(SuperSnek.w - w); 
+			xpos = r.nextInt(150);
+			ypos = r.nextInt(100+350);
+			//ypos = r.nextInt(SuperSnek.h - h);
 			xpos = xpos - (xpos % SuperSnek.XY);
 			ypos = ypos - (ypos % SuperSnek.XY);
 
@@ -146,16 +149,28 @@ public class ObjectManager {
 				overlap = true;
 				break;
 			}
-			if (TempObject.intersects(O.collisionBox)) {
-				overlap = true;
-				break;
+			// 2. Checking collision of obstcales
+			for (int i = 0; i < obstacles.size(); i++) {
+				Obstacle o = obstacles.get(i);
+				if (xpos>= O.x && xpos<= O.x+O.w) {
+					
+					if (ypos>= O.y && ypos<= O.y+O.h) {
+						overlap = true;
+						break;
+					}
+				}
+				
 			}
+			
+			// 3. Checking super food collision
 			for (int i = 0; i < Superfood.size(); i++) {
-
+				
 				if (TempObject.intersects(Superfood.get(i).collisionBox)) {
 					overlap = true;
 					break;
 				}
+			}
+			// 4. Checking normal food collision
 				for (int f = 0; f < Normalfood.size(); f++) {
 
 					if (TempObject.intersects(Normalfood.get(f).collisionBox)) {
@@ -163,7 +178,7 @@ public class ObjectManager {
 						break;
 					}
 				}
-			}
+			
 		} while (overlap);
 		pos.add(xpos);
 		pos.add(ypos);

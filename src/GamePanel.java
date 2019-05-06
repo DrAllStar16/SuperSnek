@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
-		O = new Obstacle(100, 400, 50, 50);
+		O = new Obstacle(100, 400, 60, 60);
 		OM = new ObjectManager(TS, O);
 		ArrayList<Obstacle> Obstacle = new ArrayList<Obstacle>();
 
