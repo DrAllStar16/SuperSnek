@@ -21,12 +21,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static int currentState = MENU_STATE;
 	Font titleFont;
 	Font GameOverFont;
-	TheSnek TS;
+	TheSnek Head;
+	TheSnek Tail;
 	ObjectManager OM;
 	Obstacle O;
 	int yspeed;
 	int xspeed;
 	public static BufferedImage SnekelImg;
+	
+	public static BufferedImage SnekelBodyImg;
 
 	public static BufferedImage CupCakeImg;
 
@@ -38,14 +41,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		t = new Timer(1000 / 60, this);
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
-		TS = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY);
+		Head = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY, SnekelImg);
+		Tail = new TheSnek(SuperSnek.w / 2, (SuperSnek.h / 2) + 20, SuperSnek.XY, SuperSnek.XY, SnekelBodyImg);
 		O = new Obstacle(100, 400, 60, 60);
-		OM = new ObjectManager(TS, O);
+		OM = new ObjectManager(Head, Tail, O);
 		ArrayList<Obstacle> Obstacle = new ArrayList<Obstacle>();
 
 		try {
 
 			SnekelImg = ImageIO.read(this.getClass().getResourceAsStream("Snekel.png"));
+			
+			SnekelBodyImg = ImageIO.read(this.getClass().getResourceAsStream("SnekelBody.png"));
 
 			CupCakeImg = ImageIO.read(this.getClass().getResourceAsStream("CupCake.png"));
 
@@ -89,9 +95,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		OM.update();
 		OM.checkCollision();
 		OM.purgeObject();
-		if (!TS.isAlive) {
+		if (!Head.isAlive) {
 			currentState = END_STATE;
-			TS.isAlive = true;
+			Head.isAlive = true;
 
 		}
 	}
@@ -143,20 +149,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (KeyEvent.VK_UP == e.getKeyCode()) {
-			TS.yspeed = -5;
-			TS.xspeed = 0;
+			Head.yspeed = -5;
+			Head.xspeed = 0;
+			Tail.yspeed = -5;
+			Tail.xspeed = 0;
 
 		} else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
-			TS.yspeed = 5;
-			TS.xspeed = 0;
+			Head.yspeed = 5;
+			Head.xspeed = 0;
+			Tail.yspeed = 5;
+			Tail.xspeed = 0;
 		}
 		if (KeyEvent.VK_LEFT == e.getKeyCode()) {
-			TS.xspeed = -5;
-			TS.yspeed = 0;
+			Head.xspeed = -5;
+			Head.yspeed = 0;
+			Tail.xspeed = -5;
+			Tail.yspeed = 0;
 		}
 		if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
-			TS.xspeed = 5;
-			TS.yspeed = 0;
+			Head.xspeed = 5;
+			Head.yspeed = 0;
+			Tail.xspeed = 5;
+			Tail.yspeed = 0;
 		}
 	}
 

@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
@@ -7,10 +9,12 @@ public class TheSnek extends GameObject {
 	int speed;
 	int yspeed = 0;
 	int xspeed = 0;
+	BufferedImage img;
 
-	public TheSnek(int x, int y, int w, int h) {
+	public TheSnek(int x, int y, int w, int h, BufferedImage img) {
 		super(x, y, w, h);
 		speed = 20;
+		this.img = img;
 	}
 
 	public void update() {
@@ -36,7 +40,7 @@ public class TheSnek extends GameObject {
 	
 
 	public void draw(Graphics g) {
-		g.drawImage(GamePanel.SnekelImg, x, y, w, h, null);
+		g.drawImage(img, x, y, w, h, null);
 		g.setColor(Color.GREEN);
 
 	}
