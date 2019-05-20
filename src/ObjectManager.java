@@ -12,6 +12,7 @@ public class ObjectManager {
 	ArrayList<Food> Superfood = new ArrayList<Food>();
 	ArrayList<Food> Normalfood = new ArrayList<Food>();
 	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+	ArrayList<TheSnek> SnekBody = new ArrayList<TheSnek>();
 	static final int SUPER_FOOD = 1;
 	static final int NORMAL_FOOD = 2;
 
@@ -26,8 +27,36 @@ public class ObjectManager {
 	}
 
 	public void update() {
-		Head.update();
 		Tail.update();
+		Tail.setX(Head.getX()+(SuperSnek.XY+Head.xspeed));
+		Tail.setY(Head.getY()-(SuperSnek.XY-Head.yspeed));
+		Head.update();
+		
+		if(Head.yspeed == 0) {
+			
+			Tail.setY(Head.getY());
+			
+		} else if(Head.yspeed > 0) {
+			
+			
+			
+		} else if(Head.yspeed < 0) {
+			 
+			Tail.setY(Head.getY()+(SuperSnek.XY+Head.yspeed));
+		}
+		
+		if(Head.xspeed == 0) {
+			
+			Tail.setX(Head.getX());
+			
+		} else if(Head.xspeed > 0) {
+			
+			Tail.setX(Head.getX()-(SuperSnek.XY));
+			
+		} else if(Head.xspeed < 0) {
+			 
+			
+		}
 	}
 
 	public void draw(Graphics g) {

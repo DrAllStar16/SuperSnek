@@ -6,14 +6,14 @@ import java.awt.image.BufferedImage;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 public class TheSnek extends GameObject {
-	int speed;
+	
 	int yspeed = 0;
 	int xspeed = 0;
 	BufferedImage img;
 
 	public TheSnek(int x, int y, int w, int h, BufferedImage img) {
 		super(x, y, w, h);
-		speed = 20;
+		
 		this.img = img;
 	}
 
@@ -33,11 +33,26 @@ public class TheSnek extends GameObject {
 		if (x > 500) {
 			x = 0;
 		}
-		
-		
+
 	}
-	
-	
+
+	public int getY() {
+		return y;
+	}
+
+	 void setY(int y) {
+	 this.y = y;
+	 
+	 }
+	 
+	public int getX() {
+			return x;
+		}
+
+		 void setX(int x) {
+		 this.x = x;
+		 
+		 }
 
 	public void draw(Graphics g) {
 		g.drawImage(img, x, y, w, h, null);

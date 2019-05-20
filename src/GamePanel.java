@@ -149,29 +149,33 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (KeyEvent.VK_UP == e.getKeyCode()) {
-			Head.yspeed = -5;
-			Head.xspeed = 0;
-			Tail.yspeed = -5;
-			Tail.xspeed = 0;
+			if (Head.yspeed <= 0) {
+				Head.yspeed = -5;
+				Head.xspeed = 0;
+			}
+		
+			
 
 		} else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
+			if (Head.yspeed >= 0) {
 			Head.yspeed = 5;
 			Head.xspeed = 0;
-			Tail.yspeed = 5;
-			Tail.xspeed = 0;
+			}
 		}
 		if (KeyEvent.VK_LEFT == e.getKeyCode()) {
+			if (Head.xspeed <= 0) {
 			Head.xspeed = -5;
 			Head.yspeed = 0;
-			Tail.xspeed = -5;
-			Tail.yspeed = 0;
+			}
 		}
 		if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
+			if (Head.xspeed >= 0) {
 			Head.xspeed = 5;
 			Head.yspeed = 0;
-			Tail.xspeed = 5;
-			Tail.yspeed = 0;
+			}
 		}
+		
+		
 	}
 
 	public void paintComponent(Graphics g) {
