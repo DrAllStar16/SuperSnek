@@ -27,9 +27,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Obstacle O;
 	int yspeed;
 	int xspeed;
+	int counterInterval;
 	public static BufferedImage SnekelImg;
-	
+
 	public static BufferedImage SnekelBodyImg;
+
+	public static BufferedImage SnekelTailImg;
 
 	public static BufferedImage CupCakeImg;
 
@@ -42,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("HanziPen SC", Font.ITALIC, 36);
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		Head = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY, SnekelImg);
-		Tail = new TheSnek(SuperSnek.w / 2, (SuperSnek.h / 2) + 20, SuperSnek.XY, SuperSnek.XY, SnekelBodyImg);
+		Tail = new TheSnek(SuperSnek.w / 2, (SuperSnek.h / 2) + 20, SuperSnek.XY, SuperSnek.XY, SnekelTailImg);
 		O = new Obstacle(100, 400, 60, 60);
 		OM = new ObjectManager(Head, Tail, O);
 		ArrayList<Obstacle> Obstacle = new ArrayList<Obstacle>();
@@ -50,8 +53,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		try {
 
 			SnekelImg = ImageIO.read(this.getClass().getResourceAsStream("Snekel.png"));
-			
+
 			SnekelBodyImg = ImageIO.read(this.getClass().getResourceAsStream("SnekelBody.png"));
+
+			SnekelTailImg = ImageIO.read(this.getClass().getResourceAsStream("TheSnekelTail.png"));
 
 			CupCakeImg = ImageIO.read(this.getClass().getResourceAsStream("CupCake.png"));
 
@@ -68,15 +73,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		counterInterval ++;
 		if (currentState == MENU_STATE) {
 
 			updateMenuState();
 
 		} else if (currentState == GAME_STATE) {
-
+			if (counterInterval % 4 == 0) {
 			updateGameState();
-
+			}
 		} else if (currentState == END_STATE) {
 
 			updateEndState();
@@ -150,32 +155,29 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (KeyEvent.VK_UP == e.getKeyCode()) {
 			if (Head.yspeed <= 0) {
-				Head.yspeed = -5;
+				Head.yspeed = -SuperSnek.XY;
 				Head.xspeed = 0;
 			}
-		
-			
 
 		} else if (KeyEvent.VK_DOWN == e.getKeyCode()) {
 			if (Head.yspeed >= 0) {
-			Head.yspeed = 5;
-			Head.xspeed = 0;
+				Head.yspeed = SuperSnek.XY;
+				Head.xspeed = 0;
 			}
 		}
 		if (KeyEvent.VK_LEFT == e.getKeyCode()) {
 			if (Head.xspeed <= 0) {
-			Head.xspeed = -5;
-			Head.yspeed = 0;
+				Head.xspeed = -SuperSnek.XY;
+				Head.yspeed = 0;
 			}
 		}
 		if (KeyEvent.VK_RIGHT == e.getKeyCode()) {
 			if (Head.xspeed >= 0) {
-			Head.xspeed = 5;
-			Head.yspeed = 0;
+				Head.xspeed = SuperSnek.XY;
+				Head.yspeed = 0;
 			}
 		}
-		
-		
+
 	}
 
 	public void paintComponent(Graphics g) {

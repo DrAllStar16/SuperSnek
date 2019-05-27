@@ -113,6 +113,7 @@ public class ObjectManager {
 		for (int i = 0; i < Normalfood.size(); i++) {
 			if (!Normalfood.get(i).isAlive) {
 				Normalfood.remove(i);
+				SnekBody.add(new TheSnek(Head.x,Head.y,20,20, GamePanel.SnekelBodyImg));
 				makeMeFood(NORMAL_FOOD);
 			}
 		}
