@@ -23,45 +23,35 @@ public class ObjectManager {
 		Superfood.add(s);
 		Normalfood.add(n);
 		obstacles.add(O);
-		
+
 	}
 
 	public void update() {
-		Tail.update();
-		Tail.setX(Head.getX()+(SuperSnek.XY+Head.xspeed));
-		Tail.setY(Head.getY()-(SuperSnek.XY-Head.yspeed));
-		Head.update();
-		
-		if(Head.yspeed == 0) {
-			
-			Tail.setY(Head.getY());
-			
-		} else if(Head.yspeed > 0) {
-			
-			
-			
-		} else if(Head.yspeed < 0) {
-			 
-			Tail.setY(Head.getY()+(SuperSnek.XY+Head.yspeed));
-		}
-		
-		if(Head.xspeed == 0) {
-			
+
+		if (SnekBody.isEmpty()) {
 			Tail.setX(Head.getX());
-			
-		} else if(Head.xspeed > 0) {
-			
-			Tail.setX(Head.getX()-(SuperSnek.XY));
-			
-		} else if(Head.xspeed < 0) {
-			 
-			
+			Tail.setY(Head.getY());
+
+		} else {
+			Tail.setX(SnekBody.get(SnekBody.size() - 1).getX());
+			Tail.setY(SnekBody.get(SnekBody.size() - 1).getY());
+			for (int i = SnekBody.size() - 1; i > 0; i--) {
+				SnekBody.get(i).setX(SnekBody.get(i - 1).getX());
+				SnekBody.get(i).setY(SnekBody.get(i - 1).getY());
+			}
+			SnekBody.get(0).setX(Head.getX());
+			SnekBody.get(0).setY(Head.getY());
 		}
+
+		Head.update();
 	}
 
 	public void draw(Graphics g) {
 		Head.draw(g);
 		Tail.draw(g);
+		for (int i = 0; i < SnekBody.size(); i++) {
+			SnekBody.get(i).draw(g);
+		}
 		O.draw(g);
 		for (int i = 0; i < Superfood.size(); i++) {
 			Superfood.get(i).draw(g);
@@ -113,7 +103,7 @@ public class ObjectManager {
 		for (int i = 0; i < Normalfood.size(); i++) {
 			if (!Normalfood.get(i).isAlive) {
 				Normalfood.remove(i);
-				SnekBody.add(new TheSnek(Head.x,Head.y,20,20, GamePanel.SnekelBodyImg));
+				SnekBody.add(new TheSnek(Head.x, Head.y, 20, 20, GamePanel.SnekelBodyImg));
 				makeMeFood(NORMAL_FOOD);
 			}
 		}
@@ -168,10 +158,10 @@ public class ObjectManager {
 		Random r = new Random();
 		do {
 			// Get a random value within the Snek frame
-			//xpos = r.nextInt(SuperSnek.w - w); 
+			// xpos = r.nextInt(SuperSnek.w - w);
 			xpos = r.nextInt(150);
-			ypos = r.nextInt(100+350);
-			//ypos = r.nextInt(SuperSnek.h - h);
+			ypos = r.nextInt(100 + 350);
+			// ypos = r.nextInt(SuperSnek.h - h);
 			xpos = xpos - (xpos % SuperSnek.XY);
 			ypos = ypos - (ypos % SuperSnek.XY);
 
@@ -186,33 +176,33 @@ public class ObjectManager {
 			// 2. Checking collision of obstcales
 			for (int i = 0; i < obstacles.size(); i++) {
 				Obstacle o = obstacles.get(i);
-				if (xpos>= O.x && xpos<= O.x+O.w) {
-					
-					if (ypos>= O.y && ypos<= O.y+O.h) {
+				if (xpos >= O.x && xpos <= O.x + O.w) {
+
+					if (ypos >= O.y && ypos <= O.y + O.h) {
 						overlap = true;
 						break;
 					}
 				}
-				
+
 			}
-			
+
 			// 3. Checking super food collision
 			for (int i = 0; i < Superfood.size(); i++) {
-				
+
 				if (TempObject.intersects(Superfood.get(i).collisionBox)) {
 					overlap = true;
 					break;
 				}
 			}
 			// 4. Checking normal food collision
-				for (int f = 0; f < Normalfood.size(); f++) {
+			for (int f = 0; f < Normalfood.size(); f++) {
 
-					if (TempObject.intersects(Normalfood.get(f).collisionBox)) {
-						overlap = true;
-						break;
-					}
+				if (TempObject.intersects(Normalfood.get(f).collisionBox)) {
+					overlap = true;
+					break;
 				}
-			
+			}
+
 		} while (overlap);
 		pos.add(xpos);
 		pos.add(ypos);
