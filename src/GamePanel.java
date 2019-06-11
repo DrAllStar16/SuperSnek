@@ -37,6 +37,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage CupCakeImg;
 
 	public static BufferedImage TheDonutImg;
+	
+	
 	ResetListener rl;
 
 	public GamePanel(ResetListener rl) {
@@ -56,7 +58,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 			SnekelBodyImg = ImageIO.read(this.getClass().getResourceAsStream("SnekelBody.png"));
 
-			SnekelTailImg = ImageIO.read(this.getClass().getResourceAsStream("TheSnekelTail.png"));
+			SnekelTailImg = ImageIO.read(this.getClass().getResourceAsStream("SnekelTail2.png"));
 
 			CupCakeImg = ImageIO.read(this.getClass().getResourceAsStream("CupCake.png"));
 
@@ -97,8 +99,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	private void updateGameState() {
-		OM.update();
 		OM.checkCollision();
+		OM.update();
 		OM.purgeObject();
 		if (!Head.isAlive) {
 			currentState = END_STATE;

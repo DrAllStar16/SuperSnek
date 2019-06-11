@@ -3,6 +3,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder.Body;
+
 public class ObjectManager {
 	TheSnek Head;
 	TheSnek Tail;
@@ -90,6 +92,19 @@ public class ObjectManager {
 			}
 
 		}
+		
+		
+			
+			if (Head.collisionBox.intersects(Tail.collisionBox)) {
+				Head.isAlive = false;
+			}
+			
+			for (int i = 0; i < SnekBody.size(); i++) {
+				if (Head.collisionBox.intersects(SnekBody.get(i).collisionBox)) {
+					Head.isAlive = false;
+				}
+			}
+				
 	}
 
 	public void purgeObject() {
