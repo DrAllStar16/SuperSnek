@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public static BufferedImage SnekelTailImg;
 
-	public static BufferedImage CupCakeImg;
+	public static BufferedImage TheEvilDonutImg;
 
 	public static BufferedImage TheDonutImg;
 	
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 			SnekelTailImg = ImageIO.read(this.getClass().getResourceAsStream("SnekelTail2.png"));
 
-			CupCakeImg = ImageIO.read(this.getClass().getResourceAsStream("CupCake.png"));
+			TheEvilDonutImg = ImageIO.read(this.getClass().getResourceAsStream("TheEvilDonut.png"));
 
 			TheDonutImg = ImageIO.read(this.getClass().getResourceAsStream("TheDonut.png"));
 

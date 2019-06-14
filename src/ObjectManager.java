@@ -99,11 +99,13 @@ public class ObjectManager {
 				Head.isAlive = false;
 			}
 			
-			for (int i = 0; i < SnekBody.size(); i++) {
-				if (Head.collisionBox.intersects(SnekBody.get(i).collisionBox)) {
-					Head.isAlive = false;
-				}
-			}
+	//	for (int i = 0; i < SnekBody.size(); i++) {
+			
+					
+		//	if (Head.collisionBox.intersects(SnekBody.get(i).collisionBox)) {
+				//	Head.isAlive = false;
+			//	}
+			// }
 				
 	}
 

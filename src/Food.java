@@ -14,7 +14,7 @@ public class Food extends GameObject {
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
 		if (superFood == true) {
-			g.drawImage(GamePanel.CupCakeImg, x, y, w, h, null);
+			g.drawImage(GamePanel.TheEvilDonutImg, x, y, w, h, null);
 		} else if (superFood == false) {
 			g.drawImage(GamePanel.TheDonutImg, x, y, w, h, null);
 		}
