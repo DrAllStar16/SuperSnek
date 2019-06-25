@@ -36,24 +36,7 @@ public class TheSnek extends GameObject {
 
 	}
 
-	public int getY() {
-		return y;
-	}
-
-	 void setY(int y) {
-	 this.y = y;
-	 
-	 }
-	 
-	public int getX() {
-			return x;
-		}
-
-		 void setX(int x) {
-		 this.x = x;
-		 
-		 }
-
+	
 	public void draw(Graphics g) {
 		g.drawImage(img, x, y, w, h, null);
 		g.setColor(Color.GREEN);

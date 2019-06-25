@@ -21,6 +21,25 @@ public class GameObject {
 	public void update() {
 		collisionBox.setBounds(x, y, w, h);
 	}
+	
+	public int getY() {
+		return y;
+	}
+
+	 void setY(int y) {
+	 this.y = y;
+	 
+	 }
+	 
+	public int getX() {
+			return x;
+		}
+
+		 void setX(int x) {
+		 this.x = x;
+		 
+		 }
+
 
 	public void draw(Graphics g) {
 

@@ -24,9 +24,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	TheSnek Head;
 	TheSnek Tail;
 	ObjectManager OM;
+	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 	Obstacle O;
-	int yspeed;
-	int xspeed;
 	int counterInterval;
 	public static BufferedImage SnekelImg;
 
@@ -37,8 +36,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage TheEvilDonutImg;
 
 	public static BufferedImage TheDonutImg;
-	
-	
+
 	ResetListener rl;
 
 	public GamePanel(ResetListener rl) {
@@ -48,9 +46,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		GameOverFont = new Font("Futura", Font.BOLD, 36);
 		Head = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY, SnekelImg);
 		Tail = new TheSnek(SuperSnek.w / 2, (SuperSnek.h / 2) + 20, SuperSnek.XY, SuperSnek.XY, SnekelTailImg);
-		O = new Obstacle(100, 400, 60, 60);
-		OM = new ObjectManager(Head, Tail, O);
-		ArrayList<Obstacle> Obstacle = new ArrayList<Obstacle>();
+		obstacles.add(new Obstacle(100, 400, 60, 60));
+		obstacles.add(new Obstacle(350, 100, 100, 20));
+		//obstacles.add(new Obstacle(100, 400, 60, 60));
+		OM = new ObjectManager(Head, Tail, obstacles);
+		
 
 		try {
 
@@ -75,14 +75,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		counterInterval ++;
+		counterInterval++;
 		if (currentState == MENU_STATE) {
 
 			updateMenuState();
 
 		} else if (currentState == GAME_STATE) {
 			if (counterInterval % 4 == 0) {
-			updateGameState();
+				if (Head.xspeed != 0 || Head.yspeed != 0) {
+					updateGameState();
+				}
 			}
 		} else if (currentState == END_STATE) {
 
@@ -99,8 +101,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	private void updateGameState() {
-		OM.checkCollision();
 		OM.update();
+		OM.checkCollision();
 		OM.purgeObject();
 		if (!Head.isAlive) {
 			currentState = END_STATE;

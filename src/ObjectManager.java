@@ -8,23 +8,22 @@ import com.sun.xml.internal.ws.client.sei.ResponseBuilder.Body;
 public class ObjectManager {
 	TheSnek Head;
 	TheSnek Tail;
-	Obstacle O;
 	Food s = new Food(SuperSnek.XY + 420, SuperSnek.XY + 400, SuperSnek.XY, SuperSnek.XY, true);
 	Food n = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY, false);
 	ArrayList<Food> Superfood = new ArrayList<Food>();
 	ArrayList<Food> Normalfood = new ArrayList<Food>();
-	ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+	ArrayList<Obstacle> obstacles ;
 	ArrayList<TheSnek> SnekBody = new ArrayList<TheSnek>();
 	static final int SUPER_FOOD = 1;
 	static final int NORMAL_FOOD = 2;
 
-	public ObjectManager(TheSnek Head, TheSnek Tail, Obstacle O) {
+	public ObjectManager(TheSnek Head, TheSnek Tail, ArrayList<Obstacle> O) {
 		this.Head = Head;
 		this.Tail = Tail;
-		this.O = O;
+		this.obstacles = O;
 		Superfood.add(s);
 		Normalfood.add(n);
-		obstacles.add(O);
+		
 
 	}
 
@@ -54,9 +53,14 @@ public class ObjectManager {
 		for (int i = 0; i < SnekBody.size(); i++) {
 			SnekBody.get(i).draw(g);
 		}
-		O.draw(g);
+		for (int i = 0; i < obstacles.size(); i++) {
+			obstacles.get(i).draw(g);
+		}
+		
+		
 		for (int i = 0; i < Superfood.size(); i++) {
 			Superfood.get(i).draw(g);
+			
 		}
 		for (int i = 0; i < Normalfood.size(); i++) {
 			Normalfood.get(i).draw(g);
@@ -66,19 +70,19 @@ public class ObjectManager {
 
 	public void checkCollision() {
 
-		for (Food f : Superfood) {
+		for (Food sf : Superfood) {
 
-			if (Head.collisionBox.intersects(f.collisionBox)) {
-				f.isAlive = false;
+			if (Head.collisionBox.intersects(sf.collisionBox)) {
+				sf.isAlive = false;
 
 			}
 
 		}
 
-		for (Food f : Normalfood) {
+		for (Food nf : Normalfood) {
 
-			if (Head.collisionBox.intersects(f.collisionBox)) {
-				f.isAlive = false;
+			if (Head.collisionBox.intersects(nf.collisionBox)) {
+				nf.isAlive = false;
 
 			}
 
@@ -92,27 +96,28 @@ public class ObjectManager {
 			}
 
 		}
-		
-		
-			
-			if (Head.collisionBox.intersects(Tail.collisionBox)) {
+
+	if (Head.getX() == Tail.getX() && Head.getY() == Tail.getY()) {
+			Head.isAlive = false;
+		}
+
+		for (int i = 0; i < SnekBody.size(); i++) {
+
+			if (Head.getX() == (SnekBody.get(i).getX()) && Head.getY() == (SnekBody.get(i).getY())) {
 				Head.isAlive = false;
 			}
-			
-	//	for (int i = 0; i < SnekBody.size(); i++) {
-			
-					
-		//	if (Head.collisionBox.intersects(SnekBody.get(i).collisionBox)) {
-				//	Head.isAlive = false;
-			//	}
-			// }
-				
+		}
+
 	}
 
 	public void purgeObject() {
 		for (int i = 0; i < Superfood.size(); i++) {
 			if (!Superfood.get(i).isAlive) {
 				Superfood.remove(i);
+				if (SnekBody.size()>0) {
+					SnekBody.remove(i);
+				}
+				
 				makeMeFood(SUPER_FOOD);
 			}
 		}
@@ -193,9 +198,9 @@ public class ObjectManager {
 			// 2. Checking collision of obstcales
 			for (int i = 0; i < obstacles.size(); i++) {
 				Obstacle o = obstacles.get(i);
-				if (xpos >= O.x && xpos <= O.x + O.w) {
+				if (xpos >= o.x && xpos <= o.x + o.w) {
 
-					if (ypos >= O.y && ypos <= O.y + O.h) {
+					if (ypos >= o.y && ypos <= o.y + o.h) {
 						overlap = true;
 						break;
 					}
