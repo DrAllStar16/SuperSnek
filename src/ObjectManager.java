@@ -8,6 +8,8 @@ import com.sun.xml.internal.ws.client.sei.ResponseBuilder.Body;
 public class ObjectManager {
 	TheSnek Head;
 	TheSnek Tail;
+	int nfEaten = 0;
+	int sfEaten = 0;
 	Food s = new Food(SuperSnek.XY + 420, SuperSnek.XY + 400, SuperSnek.XY, SuperSnek.XY, true);
 	Food n = new Food(SuperSnek.XY + 20, SuperSnek.XY + 20, SuperSnek.XY, SuperSnek.XY, false);
 	ArrayList<Food> Superfood = new ArrayList<Food>();
@@ -74,7 +76,7 @@ public class ObjectManager {
 
 			if (Head.collisionBox.intersects(sf.collisionBox)) {
 				sf.isAlive = false;
-
+				sfEaten ++;
 			}
 
 		}
@@ -82,6 +84,7 @@ public class ObjectManager {
 		for (Food nf : Normalfood) {
 
 			if (Head.collisionBox.intersects(nf.collisionBox)) {
+				nfEaten ++;
 				nf.isAlive = false;
 
 			}
