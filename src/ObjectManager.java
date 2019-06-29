@@ -63,6 +63,7 @@ public class ObjectManager {
 		for (int i = 0; i < Superfood.size(); i++) {
 			Superfood.get(i).draw(g);
 			
+			
 		}
 		for (int i = 0; i < Normalfood.size(); i++) {
 			Normalfood.get(i).draw(g);
@@ -184,8 +185,8 @@ public class ObjectManager {
 		do {
 			// Get a random value within the Snek frame
 			// xpos = r.nextInt(SuperSnek.w - w);
-			xpos = r.nextInt(150);
-			ypos = r.nextInt(100 + 350);
+			xpos = r.nextInt(700);
+			ypos = r.nextInt(700);
 			// ypos = r.nextInt(SuperSnek.h - h);
 			xpos = xpos - (xpos % SuperSnek.XY);
 			ypos = ypos - (ypos % SuperSnek.XY);

@@ -42,15 +42,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public GamePanel(ResetListener rl) {
 		this.rl = rl;
 		t = new Timer(1000 / 60, this);
-		titleFont = new Font("HanziPen SC", Font.ITALIC, 60);
-		GameOverFont = new Font("Futura", Font.BOLD, 30);
+		titleFont = new Font("HanziPen SC", Font.ITALIC, 100);
+		GameOverFont = new Font("Futura", Font.BOLD, 40);
 		Head = new TheSnek(SuperSnek.w / 2, SuperSnek.h / 2, SuperSnek.XY, SuperSnek.XY, SnekelImg);
 		Tail = new TheSnek(SuperSnek.w / 2, (SuperSnek.h / 2) + 20, SuperSnek.XY, SuperSnek.XY, SnekelTailImg);
-		obstacles.add(new Obstacle(100, 360, 80, 80));
-		obstacles.add(new Obstacle(320, 100, 160, 20));
-		obstacles.add(new Obstacle(460, 120, 20, 160));
-		obstacles.add(new Obstacle(320, 260, 160, 20));
-		obstacles.add(new Obstacle(160, 100, 20, 200));
+		obstacles.add(new Obstacle(100, 440, 160, 160));
+		obstacles.add(new Obstacle(380, 60, 160, 20));
+		obstacles.add(new Obstacle(520, 80, 20, 160));
+		obstacles.add(new Obstacle(380, 220, 160, 20));
+		obstacles.add(new Obstacle(100, 80, 20, 200));
+		obstacles.add(new Obstacle(500, 360, 80, 240));
 		OM = new ObjectManager(Head, Tail, obstacles);
 		
 
@@ -124,12 +125,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
 		g.drawString("SuperSnek", 100, 80);
-		g.drawString("Press ENTER", 70, 450);
-		g.drawString("To Start", 130, 380);
-		g.drawImage(SnekelImg, 40, 160, null);
-		g.drawImage(SnekelBodyImg, 140, 160, null);
-		g.drawImage(SnekelBodyImg, 240, 160, null);
-		g.drawImage(SnekelTailImg, 340, 160, null);
+		g.drawString("Press ENTER", 70, 650);
+		g.drawString("To Start", 160, 540);
+		g.drawImage(SnekelImg, 40, 120, null);
+		g.drawImage(SnekelBodyImg, 140, 120, null);
+		g.drawImage(SnekelBodyImg, 240, 120, null);
+		g.drawImage(SnekelBodyImg, 240, 220, null);
+		g.drawImage(SnekelBodyImg, 240, 320, null);
+		g.drawImage(SnekelBodyImg, 340, 320, null);
+		g.drawImage(SnekelBodyImg, 440, 320, null);
+		g.drawImage(SnekelTailImg, 540, 320, null);
 		
 	}
 
@@ -144,11 +149,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, SuperSnek.w, SuperSnek.h);
 		g.setFont(GameOverFont);
 		g.setColor(Color.WHITE);
-		g.drawString("Game Over", 160, 40);
-		g.drawString("You Ate "+OM.nfEaten + " Happy Donuts", 40, 140);
-		g.drawString("You Ate "+OM.sfEaten + " Evil Donuts", 80, 250);
-		g.drawString("Your Snek Was A Size Of " +OM.SnekBody.size(), 15, 360);
-		g.drawString("Press ENTER to restart", 75, 450);
+		g.drawString("Game Over", 220, 60);
+		g.drawString("You Ate "+OM.nfEaten + " Happy Donuts", 60, 200);
+		g.drawString("You Ate "+OM.sfEaten + " Evil Donuts", 100, 340);
+		g.drawString("Your Snek Was A Size Of " +OM.SnekBody.size(), 35, 480);
+		g.drawString("Press ENTER to restart", 95, 620);
 	}
 
 	void startGame() {

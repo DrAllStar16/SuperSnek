@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 public class SuperSnek {
 	JFrame f;
 	GamePanel gp;
-	static final int w = 500;
-	static final int h = 500;
+	static final int w = 700;
+	static final int h = 700;
 	static final int XY = 20;
 
 	ResetListener rl = new ResetListener() {

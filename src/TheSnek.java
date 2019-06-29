@@ -22,15 +22,15 @@ public class TheSnek extends GameObject {
 		y = y + yspeed;
 		x = x + xspeed;
 		if (y < 0) {
-			y = 500;
+			y = 700;
 		}
-		if (y > 500) {
+		if (y > 700) {
 			y = 0;
 		}
 		if (x < 0) {
-			x = 500;
+			x = 700;
 		}
-		if (x > 500) {
+		if (x > 700) {
 			x = 0;
 		}
 
